@@ -5,6 +5,8 @@ import numpy as np
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 
+from utils import get_time
+
 
 # 定义一维卷积神经网络模型
 class CNN1D(nn.Module):
@@ -57,50 +59,62 @@ batch_size = 200
 # 记录每个epoch的loss
 losses = []
 
-# 训练过程
-for epoch in tqdm(range(num_epochs)):
-    model.train()  # 设置模型为训练模式
-    total_loss = 0.0
 
-    # 批量训练
-    for i in range(0, len(X_train), batch_size):
-        inputs = X_train[i:i + batch_size]
-        labels = y_train[i:i + batch_size]
+def draw_fig():
+    plt.figure(figsize=(10, 6), dpi=800)
+    plt.rcParams['backend'] = 'Agg'
+    plt.plot(losses, color='blue', marker='o', linestyle='--', )
+    plt.xlabel('Epoch', fontweight='bold')
+    plt.ylabel('Loss', fontweight='bold')
+    plt.title('CNN Training Loss Curve', fontweight='bold')
+    plt.grid(True, linestyle='dashed')  # 添加网格线
 
-        optimizer.zero_grad()  # 梯度清零
+    plt.savefig('figs/cnn_pytorch.png')
+    plt.show()
 
-        # 前向传播
-        outputs = model(inputs)
-        loss = criterion(outputs, labels)
 
-        # 反向传播和优化
-        loss.backward()
-        optimizer.step()
+@get_time
+def train_and_predict():
+    for epoch in tqdm(range(num_epochs)):
+        model.train()  # 设置模型为训练模式
+        total_loss = 0.0
 
-        total_loss += loss.item()
+        # 批量训练
+        for i in range(0, len(X_train), batch_size):
+            inputs = X_train[i:i + batch_size]
+            labels = y_train[i:i + batch_size]
 
-    # 计算平均损失
-    avg_loss = total_loss / (len(X_train) // batch_size)
+            optimizer.zero_grad()  # 梯度清零
 
-    # 记录训练信息
-    losses.append(avg_loss)
+            # 前向传播
+            outputs = model(inputs)
+            loss = criterion(outputs, labels)
 
-# 在测试集上评估准确性
-model.eval()  # 设置模型为评估模式
-with torch.no_grad():
-    outputs = model(X_test)
-    _, predicted = torch.max(outputs.data, 1)
-    correct = (predicted == y_test).float().sum().item()
-    accuracy = correct / len(y_test)
+            # 反向传播和优化
+            loss.backward()
+            optimizer.step()
 
-print(f'测试集准确性: {accuracy * 100:.2f}%')
+            total_loss += loss.item()
 
-# 绘制loss曲线
-plt.figure(figsize=(10, 6), dpi=800)
-plt.rcParams['backend'] = 'Agg'
-plt.plot(losses, color='blue', marker='o', linestyle='--',)
-plt.xlabel('Epoch', fontweight='bold')
-plt.ylabel('Loss', fontweight='bold')
-plt.title('CNN Training Loss Curve', fontweight='bold')
-plt.grid(True, linestyle='dashed')  # 添加网格线
-plt.show()
+        # 计算平均损失
+        avg_loss = total_loss / (len(X_train) // batch_size)
+
+        # 记录训练信息
+        losses.append(avg_loss)
+
+
+def evaluate_model():
+    model.eval()  # 设置模型为评估模式
+    with torch.no_grad():
+        outputs = model(X_test)
+        _, predicted = torch.max(outputs.data, 1)
+        correct = (predicted == y_test).float().sum().item()
+        accuracy = correct / len(y_test)
+
+    print(f'测试集准确性: {accuracy * 100:.2f}%')
+
+
+def cnn_pytorch():
+    train_and_predict()
+    evaluate_model()
+    draw_fig()
