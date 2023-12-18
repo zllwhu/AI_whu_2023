@@ -44,7 +44,7 @@ def draw_fig():
     zoom_y = (0.93, 0.99)  # y 轴放大范围
 
     # 创建一个新的坐标系，用于绘制局部放大区域
-    ax_zoom = plt.axes([0.2, 0.42, 0.42, 0.33])  # 设置新坐标系的位置和大小
+    ax_zoom = plt.axes([0.2, 0.42, 0.42, 0.3])  # 设置新坐标系的位置和大小
     ax_zoom.plot(hidden_layer_neural_unit, result_accuracy[0], color='blue', marker='o', linestyle='--',
                  label='learning rate = 0.1')
     ax_zoom.plot(hidden_layer_neural_unit, result_accuracy[1], color='green', marker='s', linestyle='--',
@@ -67,7 +67,7 @@ def train_and_predict():
         print("当前学习率：" + str(learning_rate[j]))
         for i in range(len(hidden_layer_neural_unit)):
             print("当前隐层神经元数量：" + str(hidden_layer_neural_unit[i]))
-            model = MLPClassifier(hidden_layer_sizes=hidden_layer_neural_unit[i], activation='relu',
+            model = MLPClassifier(hidden_layer_sizes=hidden_layer_neural_unit[i], activation='logistic',
                                   random_state=42, learning_rate='constant', learning_rate_init=learning_rate[j],
                                   max_iter=250)
             model.fit(X_train, y_train)

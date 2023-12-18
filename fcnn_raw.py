@@ -28,14 +28,11 @@ class NeuralNetwork:
     def sigmoid(self, Z):
         return 1 / (1 + np.exp(-Z))
 
-    def relu(self, Z):
-        return np.maximum(0, Z)
-
     def forward_propagation(self, X):
         Z1 = np.dot(X, self.weights1) + self.biases1
-        A1 = self.relu(Z1)
+        A1 = self.sigmoid(Z1)
         Z2 = np.dot(A1, self.weights2) + self.biases2
-        A2 = self.relu(Z2)
+        A2 = self.sigmoid(Z2)
         return A1, A2
 
     def backward_propagation(self, X, y, A1, A2):
