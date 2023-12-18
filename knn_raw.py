@@ -5,6 +5,8 @@ from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
+from utils import get_time
+
 
 def euclidean_distance(p1, p2):
     distance = 0.0
@@ -45,24 +47,34 @@ print("测试集样本数：" + str(y_test.size))
 result_accuracy = []
 k = [1, 2, 3, 4, 5, 6, 7]
 
-for i in k:
-    print("当前 k 值：" + str(i))
-    knn = KNN(k=i, X_train=X_train, y_train=y_train)
-    y_pred = []
-    for j in tqdm(range(len(X_test)), unit='j'):
-        pred = knn.predict(X_test[j])
-        y_pred.append(pred)
-    accuracy = accuracy_score(y_test, y_pred)
-    result_accuracy.append(accuracy)
-    print("当前精度：" + str(accuracy))
 
-plt.figure(figsize=(10, 6), dpi=800)
-plt.rcParams['backend'] = 'Agg'
-plt.plot(k, result_accuracy, color='blue', marker='o', linestyle='--', markerfacecolor='blue')
-plt.title("Accuracy for KNN Algorithm using the scikit-learn Library", fontweight='bold')
-plt.xticks([1, 2, 3, 4, 5, 6, 7])
-plt.xlabel("K value", fontweight='bold')
-plt.ylabel("Accuracy", fontweight='bold')
-plt.grid(True, linestyle='dashed')  # 添加网格线
-plt.savefig('figs/knn_raw.png')
-plt.show()
+def draw_fig():
+    plt.figure(figsize=(10, 6), dpi=800)
+    plt.rcParams['backend'] = 'Agg'
+    plt.plot(k, result_accuracy, color='blue', marker='o', linestyle='--', markerfacecolor='blue')
+    plt.title("Accuracy for KNN Algorithm using the scikit-learn Library", fontweight='bold')
+    plt.xticks([1, 2, 3, 4, 5, 6, 7])
+    plt.xlabel("K value", fontweight='bold')
+    plt.ylabel("Accuracy", fontweight='bold')
+    plt.grid(True, linestyle='dashed')  # 添加网格线
+    plt.savefig('figs/knn_raw.png')
+    plt.show()
+
+
+@get_time
+def train_and_predict():
+    for i in k:
+        print("当前 k 值：" + str(i))
+        knn = KNN(k=i, X_train=X_train, y_train=y_train)
+        y_pred = []
+        for j in tqdm(range(len(X_test)), unit='j'):
+            pred = knn.predict(X_test[j])
+            y_pred.append(pred)
+        accuracy = accuracy_score(y_test, y_pred)
+        result_accuracy.append(accuracy)
+        print("当前精度：" + str(accuracy))
+
+
+if __name__ == '__main__':
+    train_and_predict()
+    draw_fig()

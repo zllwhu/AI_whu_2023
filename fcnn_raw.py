@@ -2,6 +2,8 @@ import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 import matplotlib.pyplot as plt
 
+from utils import get_time
+
 
 class NeuralNetwork:
     def __init__(self, input_size, hidden_size, output_size, learning_rate=0.01, max_iter=500, batch_size=200):
@@ -86,36 +88,48 @@ result_accuracy = [[] for _ in range(4)]
 hidden_layer_neural_unit = [500, 1000, 1500, 2000]
 learning_rate = [0.1, 0.01, 0.001, 0.0001]
 
-for j in range(len(learning_rate)):
-    print("当前学习率：" + str(learning_rate[j]))
-    for i in range(len(hidden_layer_neural_unit)):
-        print("当前隐层神经元数量：" + str(hidden_layer_neural_unit[i]))
-        output_size = y_train_encoded.shape[1]
-        model = NeuralNetwork(X_train.shape[1], hidden_layer_neural_unit[i], output_size,
-                              learning_rate=learning_rate[j], max_iter=2000, batch_size=200)
-        model.train(X_train, y_train_encoded)
-        y_pred = model.predict(X_test)
-        accuracy = np.mean(y_pred == y_test)
-        result_accuracy[j].append(accuracy)
-        print("当前精度：" + str(accuracy))
 
-plt.figure(figsize=(10, 6), dpi=800)
-plt.rcParams['backend'] = 'Agg'
+def draw_fig():
+    plt.figure(figsize=(10, 6), dpi=800)
+    plt.rcParams['backend'] = 'Agg'
 
-plt.plot(hidden_layer_neural_unit, result_accuracy[0], color='blue', marker='o', linestyle='--', markerfacecolor='blue',
-         label='learning rate = 0.1')
-plt.plot(hidden_layer_neural_unit, result_accuracy[1], color='green', marker='s', linestyle='--',
-         markerfacecolor='green', label='learning rate = 0.01')
-plt.plot(hidden_layer_neural_unit, result_accuracy[2], color='red', marker='^', linestyle='--', markerfacecolor='red',
-         label='learning rate = 0.001')
-plt.plot(hidden_layer_neural_unit, result_accuracy[3], color='black', marker='d', linestyle='--',
-         markerfacecolor='black', label='learning rate = 0.0001')
-plt.title("Accuracy for FCNN Using the Scikit-learn Library", fontweight='bold')
-plt.xticks([500, 1000, 1500, 2000])
-plt.xlabel("Numbers of Hidden Layer Nerual Unit", fontweight='bold')
-plt.ylabel("Accuracy", fontweight='bold')
-plt.grid(True, linestyle='dashed')  # 添加网格线
-plt.legend(frameon=True, edgecolor='black')
+    plt.plot(hidden_layer_neural_unit, result_accuracy[0], color='blue', marker='o', linestyle='--',
+             markerfacecolor='blue',
+             label='learning rate = 0.1')
+    plt.plot(hidden_layer_neural_unit, result_accuracy[1], color='green', marker='s', linestyle='--',
+             markerfacecolor='green', label='learning rate = 0.01')
+    plt.plot(hidden_layer_neural_unit, result_accuracy[2], color='red', marker='^', linestyle='--',
+             markerfacecolor='red',
+             label='learning rate = 0.001')
+    plt.plot(hidden_layer_neural_unit, result_accuracy[3], color='black', marker='d', linestyle='--',
+             markerfacecolor='black', label='learning rate = 0.0001')
+    plt.title("Accuracy for FCNN Using the Scikit-learn Library", fontweight='bold')
+    plt.xticks([500, 1000, 1500, 2000])
+    plt.xlabel("Numbers of Hidden Layer Nerual Unit", fontweight='bold')
+    plt.ylabel("Accuracy", fontweight='bold')
+    plt.grid(True, linestyle='dashed')  # 添加网格线
+    plt.legend(frameon=True, edgecolor='black')
 
-plt.savefig('figs/fcnn_raw.png')
-plt.show()
+    plt.savefig('figs/fcnn_raw.png')
+    plt.show()
+
+
+@get_time
+def train_and_predict():
+    for j in range(len(learning_rate)):
+        print("当前学习率：" + str(learning_rate[j]))
+        for i in range(len(hidden_layer_neural_unit)):
+            print("当前隐层神经元数量：" + str(hidden_layer_neural_unit[i]))
+            output_size = y_train_encoded.shape[1]
+            model = NeuralNetwork(X_train.shape[1], hidden_layer_neural_unit[i], output_size,
+                                  learning_rate=learning_rate[j], max_iter=2000, batch_size=200)
+            model.train(X_train, y_train_encoded)
+            y_pred = model.predict(X_test)
+            accuracy = np.mean(y_pred == y_test)
+            result_accuracy[j].append(accuracy)
+            print("当前精度：" + str(accuracy))
+
+
+if __name__ == '__main__':
+    train_and_predict()
+    draw_fig()
