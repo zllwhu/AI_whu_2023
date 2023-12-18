@@ -6,7 +6,7 @@ from utils import get_time
 
 
 class NeuralNetwork:
-    def __init__(self, input_size, hidden_size, output_size, learning_rate=0.01, max_iter=500, batch_size=200):
+    def __init__(self, input_size, hidden_size, output_size, learning_rate, max_iter, batch_size):
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.output_size = output_size
@@ -25,7 +25,10 @@ class NeuralNetwork:
         self.weights2 = np.random.randn(self.hidden_size, self.output_size)
         self.biases2 = np.zeros((1, self.output_size))
 
+    import numpy as np
+
     def sigmoid(self, Z):
+        Z = np.clip(Z, -500, 500)
         return 1 / (1 + np.exp(-Z))
 
     def forward_propagation(self, X):
@@ -120,7 +123,7 @@ def train_and_predict():
             print("当前隐层神经元数量：" + str(hidden_layer_neural_unit[i]))
             output_size = y_train_encoded.shape[1]
             model = NeuralNetwork(X_train.shape[1], hidden_layer_neural_unit[i], output_size,
-                                  learning_rate=learning_rate[j], max_iter=250, batch_size=200)
+                                  learning_rate=learning_rate[j], max_iter=2000, batch_size=200)
             model.train(X_train, y_train_encoded)
             y_pred = model.predict(X_test)
             accuracy = np.mean(y_pred == y_test)

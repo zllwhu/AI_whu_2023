@@ -38,7 +38,9 @@ def draw_fig():
     plt.xlabel("Numbers of Hidden Layer Neural Unit", fontweight='bold')
     plt.ylabel("Accuracy", fontweight='bold')
     plt.grid(True, linestyle='dashed')  # 添加网格线
-    plt.legend(frameon=True, edgecolor='black', bbox_to_anchor=(0.96, 0.6))
+    plt.legend(frameon=True, edgecolor='black')
+
+    """
     # 设置局部放大区域
     zoom_x = (400, 2100)  # x 轴放大范围
     zoom_y = (0.93, 0.99)  # y 轴放大范围
@@ -56,6 +58,7 @@ def draw_fig():
     ax_zoom.set_xlim(zoom_x)  # 设置局部放大区域的 x 轴范围
     ax_zoom.set_ylim(zoom_y)  # 设置局部放大区域的 y 轴范围
     ax_zoom.grid(True, linestyle='dashed')  # 添加网格线
+    """
 
     plt.savefig('figs/fcnn_sklearn.png')
     plt.show()
@@ -67,9 +70,9 @@ def train_and_predict():
         print("当前学习率：" + str(learning_rate[j]))
         for i in range(len(hidden_layer_neural_unit)):
             print("当前隐层神经元数量：" + str(hidden_layer_neural_unit[i]))
-            model = MLPClassifier(hidden_layer_sizes=hidden_layer_neural_unit[i], activation='logistic',
-                                  random_state=42, learning_rate='constant', learning_rate_init=learning_rate[j],
-                                  max_iter=250)
+            model = MLPClassifier(hidden_layer_sizes=hidden_layer_neural_unit[i], activation='logistic', solver='sgd',
+                                  random_state=None, learning_rate='constant', learning_rate_init=learning_rate[j],
+                                  max_iter=2000, early_stopping=False, shuffle=False)
             model.fit(X_train, y_train)
             y_pred = model.predict(X_test)
             accuracy = accuracy_score(y_test, y_pred)
