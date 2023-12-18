@@ -26,15 +26,13 @@ def draw_fig():
     plt.rcParams['backend'] = 'Agg'
 
     plt.plot(hidden_layer_neural_unit, result_accuracy[0], color='blue', marker='o', linestyle='--',
-             markerfacecolor='blue',
              label='learning rate = 0.1')
     plt.plot(hidden_layer_neural_unit, result_accuracy[1], color='green', marker='s', linestyle='--',
-             markerfacecolor='green', label='learning rate = 0.01')
+             label='learning rate = 0.01')
     plt.plot(hidden_layer_neural_unit, result_accuracy[2], color='red', marker='^', linestyle='--',
-             markerfacecolor='red',
              label='learning rate = 0.001')
     plt.plot(hidden_layer_neural_unit, result_accuracy[3], color='black', marker='d', linestyle='--',
-             markerfacecolor='black', label='learning rate = 0.0001')
+             label='learning rate = 0.0001')
     plt.title("Accuracy for FCNN Using the Scikit-learn Library", fontweight='bold')
     plt.xticks([500, 1000, 1500, 2000])
     plt.xlabel("Numbers of Hidden Layer Neural Unit", fontweight='bold')
@@ -48,13 +46,13 @@ def draw_fig():
     # 创建一个新的坐标系，用于绘制局部放大区域
     ax_zoom = plt.axes([0.2, 0.42, 0.42, 0.33])  # 设置新坐标系的位置和大小
     ax_zoom.plot(hidden_layer_neural_unit, result_accuracy[0], color='blue', marker='o', linestyle='--',
-                 markerfacecolor='blue', label='learning rate = 0.1')
+                 label='learning rate = 0.1')
     ax_zoom.plot(hidden_layer_neural_unit, result_accuracy[1], color='green', marker='s', linestyle='--',
-                 markerfacecolor='green', label='learning rate = 0.01')
+                 label='learning rate = 0.01')
     ax_zoom.plot(hidden_layer_neural_unit, result_accuracy[2], color='red', marker='^', linestyle='--',
-                 markerfacecolor='red', label='learning rate = 0.001')
+                 label='learning rate = 0.001')
     ax_zoom.plot(hidden_layer_neural_unit, result_accuracy[3], color='black', marker='d', linestyle='--',
-                 markerfacecolor='black', label='learning rate = 0.0001')
+                 label='learning rate = 0.0001')
     ax_zoom.set_xlim(zoom_x)  # 设置局部放大区域的 x 轴范围
     ax_zoom.set_ylim(zoom_y)  # 设置局部放大区域的 y 轴范围
     ax_zoom.grid(True, linestyle='dashed')  # 添加网格线

@@ -94,15 +94,13 @@ def draw_fig():
     plt.rcParams['backend'] = 'Agg'
 
     plt.plot(hidden_layer_neural_unit, result_accuracy[0], color='blue', marker='o', linestyle='--',
-             markerfacecolor='blue',
              label='learning rate = 0.1')
     plt.plot(hidden_layer_neural_unit, result_accuracy[1], color='green', marker='s', linestyle='--',
-             markerfacecolor='green', label='learning rate = 0.01')
+             label='learning rate = 0.01')
     plt.plot(hidden_layer_neural_unit, result_accuracy[2], color='red', marker='^', linestyle='--',
-             markerfacecolor='red',
              label='learning rate = 0.001')
     plt.plot(hidden_layer_neural_unit, result_accuracy[3], color='black', marker='d', linestyle='--',
-             markerfacecolor='black', label='learning rate = 0.0001')
+             label='learning rate = 0.0001')
     plt.title("Accuracy for FCNN Using the Scikit-learn Library", fontweight='bold')
     plt.xticks([500, 1000, 1500, 2000])
     plt.xlabel("Numbers of Hidden Layer Nerual Unit", fontweight='bold')

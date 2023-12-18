@@ -51,7 +51,7 @@ k = [1, 2, 3, 4, 5, 6, 7]
 def draw_fig():
     plt.figure(figsize=(10, 6), dpi=800)
     plt.rcParams['backend'] = 'Agg'
-    plt.plot(k, result_accuracy, color='blue', marker='o', linestyle='--', markerfacecolor='blue')
+    plt.plot(k, result_accuracy, color='blue', marker='o', linestyle='--')
     plt.title("Accuracy for KNN Algorithm using the scikit-learn Library", fontweight='bold')
     plt.xticks([1, 2, 3, 4, 5, 6, 7])
     plt.xlabel("K value", fontweight='bold')

@@ -5,13 +5,13 @@ from knn_sklearn import knn_sklearn
 
 if __name__ == '__main__':
     print(f'----------------KNN SKLEARN----------------')
-    knn_sklearn()
+    #knn_sklearn()
 
     print(f'------------------KNN RAW------------------')
-    knn_raw()
+    #knn_raw()
 
     print(f'----------------FCNN SKLEARN---------------')
     fcnn_sklearn()
 
     print(f'------------------FCNN RAW-----------------')
-    fcnn_raw()
+    #fcnn_raw()
