@@ -29,7 +29,7 @@ def draw_fig():
     plt.xlabel("K value", fontweight='bold')
     plt.ylabel("Accuracy", fontweight='bold')
     plt.grid(True, linestyle='dashed')  # 添加网格线
-    # plt.savefig('figs/knn_sklearn.png')
+    plt.savefig('figs/knn_sklearn.png')
     plt.show()
 
 
