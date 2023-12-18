@@ -67,7 +67,7 @@ def train_and_predict():
         print("当前学习率：" + str(learning_rate[j]))
         for i in range(len(hidden_layer_neural_unit)):
             print("当前隐层神经元数量：" + str(hidden_layer_neural_unit[i]))
-            model = MLPClassifier(hidden_layer_sizes=hidden_layer_neural_unit[i], activation='relu', solver='adam',
+            model = MLPClassifier(hidden_layer_sizes=hidden_layer_neural_unit[i], activation='relu',
                                   random_state=42, learning_rate='constant', learning_rate_init=learning_rate[j],
                                   max_iter=250)
             model.fit(X_train, y_train)

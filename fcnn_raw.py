@@ -28,11 +28,14 @@ class NeuralNetwork:
     def sigmoid(self, Z):
         return 1 / (1 + np.exp(-Z))
 
+    def relu(self, Z):
+        return np.maximum(0, Z)
+
     def forward_propagation(self, X):
         Z1 = np.dot(X, self.weights1) + self.biases1
-        A1 = self.sigmoid(Z1)
+        A1 = self.relu(Z1)
         Z2 = np.dot(A1, self.weights2) + self.biases2
-        A2 = self.sigmoid(Z2)
+        A2 = self.relu(Z2)
         return A1, A2
 
     def backward_propagation(self, X, y, A1, A2):
@@ -101,7 +104,7 @@ def draw_fig():
              label='learning rate = 0.001')
     plt.plot(hidden_layer_neural_unit, result_accuracy[3], color='black', marker='d', linestyle='--',
              label='learning rate = 0.0001')
-    plt.title("Accuracy for FCNN Using the Scikit-learn Library", fontweight='bold')
+    plt.title("Accuracy for FCNN Without the Scikit-learn Library", fontweight='bold')
     plt.xticks([500, 1000, 1500, 2000])
     plt.xlabel("Numbers of Hidden Layer Nerual Unit", fontweight='bold')
     plt.ylabel("Accuracy", fontweight='bold')
@@ -120,7 +123,7 @@ def train_and_predict():
             print("当前隐层神经元数量：" + str(hidden_layer_neural_unit[i]))
             output_size = y_train_encoded.shape[1]
             model = NeuralNetwork(X_train.shape[1], hidden_layer_neural_unit[i], output_size,
-                                  learning_rate=learning_rate[j], max_iter=2000, batch_size=200)
+                                  learning_rate=learning_rate[j], max_iter=250, batch_size=200)
             model.train(X_train, y_train_encoded)
             y_pred = model.predict(X_test)
             accuracy = np.mean(y_pred == y_test)
