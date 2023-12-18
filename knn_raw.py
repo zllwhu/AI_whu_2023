@@ -75,6 +75,6 @@ def train_and_predict():
         print("当前精度：" + str(accuracy))
 
 
-if __name__ == '__main__':
+def knn_raw():
     train_and_predict()
     draw_fig()
