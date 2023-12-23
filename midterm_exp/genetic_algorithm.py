@@ -184,10 +184,21 @@ class TSP:
     def plot(self):
         plt.figure(figsize=(10, 6), dpi=800)
         plt.rcParams['backend'] = 'Agg'
-        plt.plot(list(range(1, 81)), self.distance_record, color='blue')
+        plt.plot(list(range(1, 81)), self.distance_record, color='red')
         plt.title("Minimum Distance Curve", fontweight='bold')
         plt.xlabel('Iteration', fontweight='bold')
         plt.ylabel('Minimum Distance', fontweight='bold')
         plt.grid(True, linestyle='dashed')
-        plt.savefig('figs/GeneticAlgorithm.png')
+        plt.savefig('figs/GA_distance_curve.png')
         plt.show()
+
+    def visualize(self):
+        path = self.ga.best.gene + [self.ga.best.gene[0]]
+        places = ['北京', '天津', '上海', '重庆', '拉萨', '乌鲁木齐', '银川', '呼和浩特', '南宁', '哈尔滨', '长春',
+                  '沈阳', '石家庄', '太原', '西宁', '济南', '郑州', '南京', '合肥', '杭州', '福州', '南昌', '长沙',
+                  '武汉', '广州', '台北', '海口', '兰州', '西安', '成都', '贵阳', '昆明', '香港', '澳门']
+        for i in range(len(path)):
+            if i != len(path) - 1:
+                print(f'{places[path[i]]}->', end='')
+            else:
+                print(places[path[i]])

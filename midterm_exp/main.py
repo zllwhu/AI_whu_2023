@@ -4,3 +4,4 @@ if __name__ == '__main__':
     tsp = TSP()
     tsp.run()
     tsp.plot()
+    tsp.visualize()
