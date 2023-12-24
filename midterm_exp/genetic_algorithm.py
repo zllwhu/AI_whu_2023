@@ -190,7 +190,6 @@ class TSP:
         plt.ylabel('Minimum Distance', fontweight='bold')
         plt.grid(True, linestyle='dashed')
         plt.savefig('figs/GA_distance_curve.png')
-        plt.show()
 
     def visualize(self):
         path = self.ga.best.gene + [self.ga.best.gene[0]]
@@ -202,3 +201,4 @@ class TSP:
                 print(f'{places[path[i]]}->', end='')
             else:
                 print(places[path[i]])
+        return path, self.distance(self.ga.best.gene)
