@@ -18,13 +18,11 @@ class Visualizer:
                             '南昌', '长沙', '武汉', '广州', '台北', '海口', '兰州', '西安', '成都', '贵阳', '昆明',
                             '香港', '澳门']
 
-    def plot_cities(self):
+    def plot_cities(self, alg):
         plt.rcParams['backend'] = 'Agg'
         font = FontProperties(fname="/System/Library/Fonts/PingFang.ttc")
         longitude = [location[0] for location in self.cities_location]
         latitude = [location[1] for location in self.cities_location]
-        print(longitude)
-        print(latitude)
         fig, ax = plt.subplots(figsize=(10, 6), dpi=800)
         ax.scatter(longitude, latitude, color='blue', zorder=2)
         for i, name in enumerate(self.cities_name):
@@ -38,11 +36,15 @@ class Visualizer:
         ax.set_xlim(85, 130)
         ax.set_ylim(17, 50)
         plt.text(113, 18, 'Distance = ' + str(self.distance), color='red', fontweight='bold', zorder=4)
-        plt.title("TSP", fontweight='bold')
         plt.xlabel('Longitude', fontweight='bold')
         plt.ylabel('Latitude', fontweight='bold')
         plt.grid(True, linestyle='dashed')
-        plt.savefig('figs/GA_visualize.png')
+        if alg == 1:
+            plt.title("TSP (Genetic Algorithm)", fontweight='bold')
+            plt.savefig('figs/GA_visualize.png')
+        elif alg == 2:
+            plt.title("TSP (Ant Colony Optimization Algorithm)", fontweight='bold')
+            plt.savefig('figs/ACOA_visualize.png')
 
 
 if __name__ == '__main__':
