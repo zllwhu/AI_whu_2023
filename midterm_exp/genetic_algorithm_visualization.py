@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 
 
-class Visualization:
+class Visualizer:
     def __init__(self, best_path, best_distance):
         self.path = best_path
         self.distance = best_distance
@@ -48,5 +48,5 @@ class Visualization:
 if __name__ == '__main__':
     path = [25, 20, 21, 16, 13, 7, 12, 15, 1, 0, 9, 10, 11, 2, 19, 17, 18, 23, 22, 28, 6, 27, 14, 5, 4, 31, 29, 3,
             30, 8, 26, 33, 32, 24, 25]
-    visualizer = Visualization(path, 156)
+    visualizer = Visualizer(path, 156)
     visualizer.plot_cities()
