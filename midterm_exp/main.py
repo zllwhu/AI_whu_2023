@@ -1,10 +1,10 @@
-from midterm_exp.genetic_algorithm import TSP
-from midterm_exp.genetic_algorithm_visualization import Visualizer
+from midterm_exp.visualizer import Visualizer
+from midterm_exp.tsp import TSP
 
 if __name__ == '__main__':
     tsp = TSP()
-    tsp.run()
-    tsp.plot()
-    path, distance = tsp.visualize()
+    tsp.run_ga()
+    tsp.plot_ga()
+    path, distance = tsp.visualize_ga()
     visualizer = Visualizer(path, distance)
     visualizer.plot_cities()
