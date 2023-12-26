@@ -14,3 +14,6 @@ if __name__ == '__main__':
     tsp.plot(2)
     visualizer = Visualizer(path, distance)
     visualizer.plot_cities(2)
+    """ Time Analysis"""
+    tsp.plot_time_analysis(1)
+    tsp.plot_time_analysis(2)

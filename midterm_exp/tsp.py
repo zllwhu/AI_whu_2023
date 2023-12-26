@@ -1,4 +1,5 @@
 import math
+import statistics
 import time
 
 import numpy as np
@@ -136,3 +137,22 @@ class TSP:
             max_iter -= 1
         return np.concatenate(
             (self.acoa.global_minima_path, [self.acoa.global_minima_path[0]])), self.acoa.global_minima
+
+    def plot_time_analysis(self, alg):
+        plt.figure(figsize=(10, 6), dpi=800)
+        plt.rcParams['backend'] = 'Agg'
+        plt.xlabel('Time', fontweight='bold')
+        plt.ylabel('Iteration', fontweight='bold')
+        plt.grid(True, linestyle='dashed')
+        if alg == 1:
+            average_time = statistics.mean(self.time_record_acoa)
+            plt.title("Time Analysis (Genetic Algorithm)", fontweight='bold')
+            plt.bar(list(range(1, 101)), self.time_record_ga, color='blue')
+            plt.axhline(y=average_time, color='red', linestyle='--')
+            plt.savefig('figs/GA_time_analysis.png')
+        elif alg == 2:
+            average_time = statistics.mean(self.time_record_acoa)
+            plt.title("Time Analysis (Ant Colony Optimization Algorithm)", fontweight='bold')
+            plt.bar(list(range(1, 101)), self.time_record_acoa, color='blue')
+            plt.axhline(y=average_time, color='red', linestyle='--')
+            plt.savefig('figs/ACOA_time_analysis.png')
