@@ -141,18 +141,21 @@ class TSP:
     def plot_time_analysis(self, alg):
         plt.figure(figsize=(10, 6), dpi=800)
         plt.rcParams['backend'] = 'Agg'
-        plt.xlabel('Time', fontweight='bold')
-        plt.ylabel('Iteration', fontweight='bold')
+        plt.xlabel('Iteration', fontweight='bold')
+        plt.ylabel('Time/s', fontweight='bold')
         plt.grid(True, linestyle='dashed')
+        plt.ylim(0.00, 0.30)
         if alg == 1:
-            average_time = statistics.mean(self.time_record_acoa)
+            average_time = statistics.mean(self.time_record_ga)
             plt.title("Time Analysis (Genetic Algorithm)", fontweight='bold')
-            plt.bar(list(range(1, 101)), self.time_record_ga, color='blue')
-            plt.axhline(y=average_time, color='red', linestyle='--')
+            plt.bar(list(range(1, 101)), self.time_record_ga, color='blue', zorder=1)
+            plt.axhline(y=average_time, color='red', linestyle='--', zorder=2)
+            plt.text(0, 0.22, 'Average Time = ' + str(average_time), color='red', fontweight='bold', zorder=3)
             plt.savefig('figs/GA_time_analysis.png')
         elif alg == 2:
             average_time = statistics.mean(self.time_record_acoa)
             plt.title("Time Analysis (Ant Colony Optimization Algorithm)", fontweight='bold')
-            plt.bar(list(range(1, 101)), self.time_record_acoa, color='blue')
-            plt.axhline(y=average_time, color='red', linestyle='--')
+            plt.bar(list(range(1, 101)), self.time_record_acoa, color='blue', zorder=1)
+            plt.axhline(y=average_time, color='red', linestyle='--', zorder=2)
+            plt.text(0, 0.16, 'Average Time = ' + str(average_time), color='red', fontweight='bold', zorder=3)
             plt.savefig('figs/ACOA_time_analysis.png')
