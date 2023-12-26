@@ -28,9 +28,11 @@ class AntColonyOptimizationAlgorithm:
     def run(self):
         # 初始化蚂蚁位置
         if self.ant_num <= self.city_num:
-            self.path_matrix[:, 0] = np.array(random.sample([i for i in range(self.city_num)], self.ant_num))
+            self.path_matrix[:, 0] = np.array(
+                random.sample([i for i in range(self.city_num)], self.ant_num))
         else:
-            self.path_matrix[:, 0] = np.array([random.randint(0, self.city_num - 1) for _ in range(self.ant_num)])
+            self.path_matrix[:, 0] = np.array(
+                [random.randint(0, self.city_num - 1) for _ in range(self.ant_num)])
 
         # 蚂蚁开始移动
         local_distance = np.zeros(self.ant_num)

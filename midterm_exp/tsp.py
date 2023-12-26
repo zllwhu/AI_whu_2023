@@ -1,4 +1,5 @@
 import math
+import time
 
 import numpy as np
 from matplotlib import pyplot as plt
@@ -19,6 +20,8 @@ class TSP:
                                                    city_num=len(self.cities), distance_matrix=distance_matrix)
         self.distance_record_ga = []
         self.distance_record_acoa = []
+        self.time_record_ga = []
+        self.time_record_acoa = []
 
     def init_cities(self):
         self.cities.append((116.46, 39.92))
@@ -71,7 +74,11 @@ class TSP:
 
     def run_ga(self, max_iter=100, print_process=True):
         while max_iter > 0:
+            start_time = time.time()
             self.ga.next_iter()
+            end_time = time.time()
+            print('耗时：{}秒'.format(end_time - start_time))
+            self.time_record_ga.append(end_time - start_time)
             distance = self.distance_gene(self.ga.best.gene)
             self.distance_record_ga.append(distance)
             if print_process:
@@ -117,7 +124,11 @@ class TSP:
     def run_acoa(self, max_iter=100, print_process=True):
         flag = 1
         while max_iter > 0:
+            start_time = time.time()
             distance, path = self.acoa.run()
+            end_time = time.time()
+            print('耗时：{}秒'.format(end_time - start_time))
+            self.time_record_acoa.append(end_time - start_time)
             self.distance_record_acoa.append(distance)
             if print_process:
                 print(f'第{flag}次迭代,最短距离:{distance},最短路径:{path}')
