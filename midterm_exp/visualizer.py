@@ -46,9 +46,28 @@ class Visualizer:
             plt.title("TSP (Ant Colony Optimization Algorithm)", fontweight='bold')
             plt.savefig('figs/ACOA_visualize.png')
 
+    def plot_cities_only(self):
+        plt.rcParams['backend'] = 'Agg'
+        font = FontProperties(fname="/System/Library/Fonts/PingFang.ttc")
+        longitude = [location[0] for location in self.cities_location]
+        latitude = [location[1] for location in self.cities_location]
+        fig, ax = plt.subplots(figsize=(10, 6), dpi=800)
+        ax.scatter(longitude, latitude, color='blue', zorder=2)
+        for i, name in enumerate(self.cities_name):
+            ax.annotate(name, (longitude[i], latitude[i]), fontproperties=font, zorder=3)
+        ax.set_xlim(85, 130)
+        ax.set_ylim(17, 50)
+        plt.title("TSP", fontweight='bold')
+        plt.xlabel('Longitude', fontweight='bold')
+        plt.ylabel('Latitude', fontweight='bold')
+        plt.grid(True, linestyle='dashed')
+        plt.savefig('figs/cities_visualize.png')
+
 
 if __name__ == '__main__':
     path = [25, 20, 21, 16, 13, 7, 12, 15, 1, 0, 9, 10, 11, 2, 19, 17, 18, 23, 22, 28, 6, 27, 14, 5, 4, 31, 29, 3,
             30, 8, 26, 33, 32, 24, 25]
     visualizer = Visualizer(path, 156)
-    visualizer.plot_cities()
+    # visualizer.plot_cities(1)
+    # visualizer.plot_cities(2)
+    visualizer.plot_cities_only()
